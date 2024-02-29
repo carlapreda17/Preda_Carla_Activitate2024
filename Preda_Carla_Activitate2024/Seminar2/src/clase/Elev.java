@@ -1,11 +1,12 @@
 package clase;
 
 import java.util.Arrays;
+import java.util.List;
 
-public class Elev extends Aplicant{
+public class Elev extends Aplicant {
 	private int clasa;
 	private String tutore;
-	
+
 	public int getClasa() {
 		return clasa;
 	}
@@ -18,29 +19,32 @@ public class Elev extends Aplicant{
 	public void setTutore(String tutore) {
 		this.tutore = tutore;
 	}
-	
-	
+
+
 	@Override
 	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		for (String proiect : denumiriProiecte) {
+			stringBuilder.append(proiect).append(" ");
+		}
 		return "Elev: Nume=" + nume + ", Prenume=" + prenume + ", Varsta="
-				+ varsta + ", Punctaj=" + punctaj + ", Nr_proiecte=" + nr_proiecte  + ", DenumireProiect="
-				+ Arrays.toString(denumireProiect) + "Clasa=" + clasa + ", Tutore=" + tutore;
+				+ varsta + ", Punctaj=" + punctaj + ", Nr_proiecte=" + nrProiecte + ", DenumireProiect="
+				+ stringBuilder.toString() + "Clasa=" + clasa + ", Tutore=" + tutore;
 	}
-	
+
 	public Elev() {
 		super();
 	}
-	
+
 	public Elev(String nume, String prenume, int varsta, int punctaj,
-			int nr_proiecte, String[] denumireProiect, int clasa, String tutore) {
-		super(nume,prenume,varsta,punctaj,nr_proiecte,denumireProiect);
+				int nrProiecte, List<String> denumiriProiecte, int clasa, String tutore) {
+		super(nume,prenume,varsta,punctaj,nrProiecte,denumiriProiecte);
 		this.clasa = clasa;
 		this.tutore = tutore;
 	}
 
-	public void afisareBugetPeZi(int bugetPeZi) {
-		System.out.println("Studentul "+getNume()+" "+getPrenume()+" primeste"+bugetPeZi+" Euro/zi in proiect.");
+	@Override
+	public void afisareBugetPeZi(int buget) {
+		System.out.println("Angajatul " + getNume() + " " + getPrenume() + " primeste" + buget + " Euro/zi in proiect.");
 	}
-
-
 }

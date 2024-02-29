@@ -2,6 +2,7 @@ package clase.readers.classes;
 
 import clase.Angajat;
 import clase.Aplicant;
+import clase.readers.interfaces.AplicantReader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,22 +10,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class AngajatReader {
-    public  List<Aplicant> read(String file) throws FileNotFoundException, NumberFormatException {
-        Scanner input2 = new Scanner(new File(file));
-        input2.useDelimiter(",");
+public class AngajatReader extends AplicantReader {
+    public AngajatReader(String file) {
+        super(file);
+    }
+
+    @Override
+    public List<Aplicant> read() throws FileNotFoundException {
+        Scanner input = new Scanner(new File(file));
+        input.useDelimiter(",");
         List<Aplicant> angajati = new ArrayList<>();
 
-        while (input2.hasNext()) {
-            Angajat angajat=new Angajat();
-            super.readAplicant(input2,angajat);
-            int salariu = input2.nextInt();
-            String ocupatie = input2.next();
-            angajat.setOcupatie(ocupatie);
+        while (input.hasNext()) {
+            Angajat angajat = new Angajat();
+            readAplicant(input, angajat);
+
+            int salariu = input.nextInt();
+            String ocupatie = input.next();
+
             angajat.setSalariu(salariu);
+            angajat.setOcupatie(ocupatie);
+
             angajati.add(angajat);
         }
-        input2.close();
+        input.close();
         return angajati;
     }
 }

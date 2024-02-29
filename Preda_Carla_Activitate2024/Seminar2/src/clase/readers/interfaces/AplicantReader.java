@@ -3,35 +3,33 @@ package clase.readers.interfaces;
 import clase.Aplicant;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public abstract class AplicantReader {
-    private String fileName;
 
-    public AplicantReader(String fileName) {
-        this.fileName = fileName;
+    public String file;
+
+    public AplicantReader(String file) {
+        this.file = file;
     }
+    public abstract List<Aplicant> read() throws FileNotFoundException;
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public Aplicant readAplicant(Scanner input, Aplicant aplicant){
+    public void readAplicant(Scanner input, Aplicant aplicant) {
         String nume = input.next();
-        String prenume = (input.next()).toString();
-        int varsta = Integer.valueOf(input.nextInt());
-        int punctaj = Integer.valueOf(input.nextInt());
-        int nr = Integer.valueOf(input.nextInt());
-        String[] vect = new String[nr];
+        String prenume = input.next();
+        int varsta = input.nextInt();
+        int punctaj = input.nextInt();
+        int nr = input.nextInt();
+        List<String> vect = new ArrayList<>(5);
         for (int i = 0; i < nr; i++)
-            vect[i] = input.next();
+            vect.add(input.next());
+
         aplicant.setNume(nume);
         aplicant.setPrenume(prenume);
         aplicant.setVarsta(varsta);
-        aplicant.setNr_proiecte(nr,vect);
         aplicant.setPunctaj(punctaj);
-
+        aplicant.setProiecte(nr, vect);
     }
-    public  abstract List<Aplicant> read(String fileName) throws FileNotFoundException;
 }
